@@ -34,59 +34,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
-
-  <style>
-    input:focus, select:focus, textarea:focus {
-        border-color: #0d6efd;
-        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
-    }
-
-    button:hover {
-        background-color: #0a58ca;
-        transition: background-color 0.3s ease;
-    }
-
-    .is-invalid {
-  border-color: red;
-  background-color: #f8d7da;
-}
-
-.is-invalid:focus {
-  border-color: red;
-  outline: none;
-}
-
-/* CSS */
-#cancelButton {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px; /* Adjust for spacing */
-}
-
-#cancelButton:hover {
-    background-color: darkred;
-    transform: scale(1.05);
-}
-
-#cancelButton:focus {
-    outline: none;
-}
-
-/* Optional positioning */
-#cancelButton {
-    display: inline-block;
-    margin: 10px auto;
-    text-align: center;
-}
-
-  </style>
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -114,15 +61,17 @@
           </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active bg-gradient-dark text-white" href="../pages/notifications.html">
+              <i class="material-symbols-rounded opacity-5">table_view</i>
+              <span class="nav-link-text ms-1">View Budget</span>
+            </a>
+          </li>
+        <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/transactions.html">
             <i class="material-symbols-rounded opacity-5">receipt_long</i>
             <span class="nav-link-text ms-1">Other Transactions</span>
           </a>
         </li>
-        <a class="nav-link active bg-gradient-dark text-white" href="../pages/addTransaction.html">
-            <i class="material-symbols-rounded opacity-5">receipt_long</i>
-            <span class="nav-link-text ms-1">Edit Transactions</span>
-          </a>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/notifications.html">
             <i class="material-symbols-rounded opacity-5">notifications</i>
@@ -164,7 +113,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Transaction</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">View Budget</li>
           </ol>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -271,81 +220,101 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-          <!-- Transaction Form Card -->
-          <div class="card mt-4 shadow rounded">
-            <div class="card-header p-3 bg-primary text-white">
-              <h5 class="mb-0">Edit Transaction</h5>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <!-- Budget Form Card -->
+                <div class="card mt-4">
+                    <div class="card-header p-3 bg-primary text-white">
+                        <h5 class="mb-0">Budget Details</h5>
+                    </div>
+                    <div class="card-body p-3">
+                        <!-- Read-Only Budget Form -->
+                        <form>
+                            <!-- Budget Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Budget Name</label>
+                                <input type="text" class="form-control" id="name" name="name" readonly value="Family Vacation Fund">
+                            </div>
+    
+                            <!-- Budget Description -->
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Budget Description</label>
+                                <input type="text" class="form-control" id="description" name="description" readonly value="A budget for our family vacation to the beach this summer.">
+                            </div>
+    
+                            <!-- Total Amount -->
+                            <div class="mb-3">
+                                <label for="totalAmount" class="form-label">Total Amount</label>
+                                <input type="number" class="form-control" id="totalAmount" name="totalAmount" readonly value="5000">
+                            </div>
+    
+                            <!-- Remaining Balance -->
+                            <div class="mb-3">
+                                <label for="remainingBalance" class="form-label">Remaining Balance</label>
+                                <input type="number" class="form-control" id="remainingBalance" name="remainingBalance" readonly value="2500">
+                            </div>
+    
+                            <!-- Current Spending -->
+                            <div class="mb-3">
+                                <label for="currentSpending" class="form-label">Current Spending</label>
+                                <input type="number" class="form-control" id="currentSpending" name="currentSpending" readonly value="2200">
+                            </div>
+    
+                            <!-- Start Date -->
+                            <div class="mb-3">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="text" class="form-control" id="startDate" name="startDate" readonly>
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="mb-3">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="text" class="form-control" id="endDate" name="endDate" readonly>
+                            </div>
+
+    
+                            <!-- Notifications Enabled -->
+                            <div class="mb-3">
+                                <label for="notificationsEnabled" class="form-label">Notifications Enabled</label>
+                                <input type="text" class="form-control" id="notificationsEnabled" name="notificationsEnabled" readonly value="Yes">
+                            </div>
+    
+                            <!-- Status -->
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <div class="mt-2">
+                                <span id="status" class="badge bg-success text-white">Active</span>
+                                </div>
+                            </div>
+  
+
+    
+                            <!-- Budget Items Section (Initially Hidden) -->
+<div class="mb-3">
+    <label for="addBudgetItems" class="form-label">Would you like to view budget items?</label><br>
+    <input type="radio" id="addBudgetItemsYes" name="addBudgetItems" value="yes" onchange="toggleBudgetItemsSection(true)"> Yes
+    <input type="radio" id="addBudgetItemsNo" name="addBudgetItems" value="no" checked onchange="toggleBudgetItemsSection(false)"> No
+</div>
+
+<div id="budgetItemsSection" style="display: none;">
+    <h5 class="mb-3">Budget Items</h5>
+    <div id="budgetItemsList"></div> <!-- Budget items will be dynamically added here -->
+</div>
+
+    
+                            <!-- Back Button -->
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-secondary" onclick="window.location.href='goalsAndBudgets.html';">Back</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body p-4">
-              <!-- Transaction Form -->
-              <form id="editTransactionForm" action="/submit-transaction" method="POST" onsubmit="return validateForm()">
-                <div class="mb-3">
-                  <label for="amount" class="form-label">Amount</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border rounded-start"><i class="fas fa-dollar-sign"></i></span>
-                    <input type="number" class="form-control border rounded-end" id="amount" name="amount" placeholder="Enter transaction amount" required>
-                  </div>
-                </div>
-    
-                <div class="mb-3">
-                  <label for="type" class="form-label">Type</label>
-                  <select class="form-select border rounded" id="type" name="type" required>
-                    <option value="" disabled selected>Select transaction type</option>
-                    <option value="income">Income</option>
-                    <option value="expense">Expense</option>
-                  </select>
-                </div>
-    
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
-                  <select class="form-select border rounded" id="category" name="category" onchange="toggleCustomCategory()" required>
-                    <option value="" disabled selected>Select category</option>
-                    <option value="salary">Salary</option>
-                    <option value="investment">Investment</option>
-                    <option value="food">Food</option>
-                    <option value="transport">Transport</option>
-                    <option value="others">Others</option>
-                  </select>
-                </div>
-    
-                <div class="mb-3" id="customCategoryDiv" style="display: none;">
-                  <label for="customCategory" class="form-label">Custom Category</label>
-                  <input type="text" class="form-control border rounded" id="customCategory" name="customCategory" placeholder="Enter custom category">
-                </div>
-    
-                <div class="mb-3">
-                  <label for="description" class="form-label">Description</label>
-                  <textarea class="form-control border rounded" id="description" name="description" rows="3" placeholder="Enter transaction description"></textarea>
-                </div>
-    
-                <div class="mb-3">
-                  <label for="date" class="form-label">Date</label>
-                  <input type="date" class="form-control border rounded" id="date" name="date" required>
-                </div>
-    
-                <div class="d-grid gap-2">
-                  <button id="submitBtn" type="submit" class="btn btn-success rounded-pill">
-                    Submit <i class="fas fa-check-circle"></i>
-                  </button>
-                </div>
-                
-                <div class="d-grid gap-2">
-                    <button type="button" id="cancelButton" onclick="cancelEdit()">Cancel</button>
-                  </div>  
-    
-                <!-- Validation Feedback -->
-                <div id="feedback" class="mt-3 text-danger" style="display: none;">
-                  Please fill out all required fields correctly.
-                </div>
-              </form>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
     
+    
+      
       
   </main>
   <div class="fixed-plugin">
@@ -437,152 +406,109 @@
     }
   </script>
 
-<script>
-    // Function to toggle the visibility of the custom category input field
-    function toggleCustomCategory() {
-        var category = document.getElementById("category").value;
-        var customCategoryDiv = document.getElementById("customCategoryDiv");
-  
-        if (category === "others") {
-            customCategoryDiv.style.display = "block"; // Show the custom category input
-        } else {
-            customCategoryDiv.style.display = "none"; // Hide the custom category input
-            document.getElementById("customCategory").value = ""; // Clear the custom category input
-        }
-    }
-</script>
-
-<script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const transactionId = queryParams.get('id');
-        
-        if (transactionId) {
-            fetchTransactionDetails(transactionId);
-        }
-    });
+  // Get the budget ID from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const budgetId = urlParams.get('id');
+  
+  if (!budgetId) {
+    alert('Budget ID is missing in the URL.');
+    return;
+  }
+  
+  // Fetch budget details using the budget ID
+  fetchBudgetDetails(budgetId);
+});
 
-    function fetchTransactionDetails(transactionId) {
-        const token = localStorage.getItem('token');
-        fetch(`http://localhost:8080/api/transactions/${transactionId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(transaction => {
-            // Populate the form fields
-            document.getElementById('amount').value = transaction.amount;
-            document.getElementById('type').value = transaction.type;
+async function fetchBudgetDetails(budgetId) {
+  try {
+    const response = await fetch(`http://localhost:8080/api/budgets/${budgetId}`);
+    const budget = await response.json();
 
-            // Check if category is predefined or custom
-            const predefinedCategories = ['salary', 'food', 'transport', 'investment', 'others'];
-            if (predefinedCategories.includes(transaction.category)) {
-                document.getElementById('category').value = transaction.category;
-                document.getElementById('customCategoryDiv').style.display = 'none'; // Hide custom input
-            } else {
-                document.getElementById('category').value = 'others'; // Set dropdown to 'others'
-                document.getElementById('customCategoryDiv').style.display = 'block'; // Show custom input
-                document.getElementById('customCategory').value = transaction.category; // Set custom category
-            }
-
-            document.getElementById('description').value = transaction.description;
-
-            // Format and set date
-            const transactionDate = new Date(transaction.date).toISOString().split('T')[0]; // Format as YYYY-MM-DD
-            document.getElementById('date').value = transactionDate;
-        })
-        .catch(error => {
-            console.error('Error fetching transaction details:', error);
-        });
+    if (!response.ok) {
+      throw new Error('Failed to fetch budget details.');
     }
 
-    // Validation logic
-    document.getElementById('editTransactionForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission for validation
+    // Populate the form with the fetched budget details
+    populateForm(budget);
+    
+  } catch (error) {
+    console.error('Error fetching budget details:', error);
+    alert('Failed to load budget details. Please try again.');
+  }
+}
 
-        const transactionId = new URLSearchParams(window.location.search).get('id');
-        const amount = document.getElementById('amount').value.trim();
-        const type = document.getElementById('type').value.trim();
-        const category = document.getElementById('category').value.trim();
-        const customCategory = document.getElementById('customCategory').value.trim();
-        const date = document.getElementById('date').value.trim();
-        const description = document.getElementById('description').value.trim();
+function populateForm(budget) {
+  // Populate budget fields
+  document.getElementById('name').value = budget.budgetName;
+  document.getElementById('description').value = budget.budgetDescription;
+  document.getElementById('totalAmount').value = budget.totalAmount.toFixed(2);
+  document.getElementById('remainingBalance').value = budget.remainingBalance.toFixed(2);
+  document.getElementById('currentSpending').value = budget.budgetCurrentSpending.toFixed(2);
 
-        // Validate required fields
-        if (!amount) {
-            alert('Amount is required.');
-            return;
-        }
-        if (!type) {
-            alert('Type is required.');
-            return;
-        }
-        if (!category || category === "default") {  // "default" is a placeholder for an empty or invalid selection
-            alert('Category is required.');
-            return;
-        }
+  // Format and set the start and end dates
+  document.getElementById('startDate').value = formatDate(budget.startDate);
+  document.getElementById('endDate').value = formatDate(budget.endDate);
 
-        // // If "others" is selected, customCategory is not required
-        // if (category === 'others' && customCategory === "") {
-        //     // Custom category is not required if "others" is selected
-        //     console.log("Custom category is not required.");
-        // } else if (category !== 'others' && !customCategory) {
-        //     // If predefined category is selected, custom category field should be empty
-        //     alert('Custom category should be left empty for predefined categories.');
-        //     return;
-        // }
+  // Set notifications enabled checkbox
+  document.getElementById('notificationsEnabled').checked = budget.notificationsEnabled;
 
-        if (!date) {
-            alert('Date is required.');
-            return;
-        }
-
-            // Prepare the data to be sent to the backend
-        const transactionData = {
-            id: transactionId, // Include the ID in the body
-            amount: amount,
-            type: type,
-            category: category === 'others' ? customCategory : category, // Use custom category if "others" is selected
-            description: description,
-            date: date
-        };
-
-        // Send the updated data to the backend using a PUT request
-        const token = localStorage.getItem('token');
-        fetch('http://localhost:8080/api/transactions', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(transactionData) // Send the transaction data in the body
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update transaction');
-            }
-            // After successful update, redirect to the transactions page
-            window.location.href = '/pages/transactions.html'; // Redirect to the transactions list page
-        })
-        .catch(error => {
-            console.error('Error updating transaction:', error);
-            alert('Error updating transaction. Please try again.');
-        });
-    });
-    function cancelEdit() {
-        window.location.href = '/pages/transactions.html'; // Redirect to the transactions page
-    }
-</script>
-
-
+  // Set status based on active value
+  const statusElement = document.getElementById('status');
+  statusElement.textContent = budget.active ? 'Active' : 'Inactive';
+  statusElement.classList.add(budget.active ? 'bg-success' : 'bg-danger');  // Green for active, red for inactive
   
+  // Populate budget items list
+  populateBudgetItems(budget.budgetItems);
   
+  // Toggle budget items section visibility based on notificationsEnabled
+  document.getElementById('addBudgetItemsYes').checked = budget.notificationsEnabled;
+  toggleBudgetItemsSection(budget.notificationsEnabled);
+}
 
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+
+// Populate the budget items section dynamically
+function populateBudgetItems(budgetItems) {
+  const budgetItemsContainer = document.getElementById('budgetItemsList');
+  budgetItemsContainer.innerHTML = ''; // Clear previous items
   
+  budgetItems.forEach(item => {
+    const itemRow = document.createElement('div');
+    itemRow.classList.add('mb-3');
+    
+    itemRow.innerHTML = `
+      <strong>Type:</strong> ${item.type} <br>
+      <strong>Description:</strong> ${item.description} <br>
+      <strong>Amount:</strong> $${item.amount.toFixed(2)} <br>
+      <hr>
+    `;
+    
+    budgetItemsContainer.appendChild(itemRow);
+  });
+}
+
+// Toggle visibility of the budget items section based on radio button
+function toggleBudgetItemsSection(showItems) {
+  const budgetItemsSection = document.getElementById('budgetItemsSection');
+  if (showItems) {
+    budgetItemsSection.style.display = 'block';
+  } else {
+    budgetItemsSection.style.display = 'none';
+  }
+}
+
+  </script>
+
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

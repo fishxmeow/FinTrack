@@ -34,6 +34,31 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+
+  <!-- Custom link to awesome fonts (for trashcan icon)-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    input:focus, select:focus, textarea:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+    }
+
+    button:hover {
+        background-color: #0a58ca;
+        transition: background-color 0.3s ease;
+    }
+
+    .is-invalid {
+  border-color: red;
+  background-color: #f8d7da;
+}
+
+.is-invalid:focus {
+  border-color: red;
+  outline: none;
+}
+  </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -214,63 +239,99 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-2">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <!-- Transaction Form Card -->
-            <div class="card mt-4">
-              <div class="card-header p-3">
-                <h5 class="mb-0">Transaction</h5>
-              </div>
-              <div class="card-body p-3">
-                <!-- Transaction Form -->
-                <form action="/submit-transaction" method="POST">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <!-- Budget Form Card -->
+          <div class="card mt-4">
+            <div class="card-header p-3">
+              <h5 class="mb-0">Add New Budget</h5>
+            </div>
+            <div class="card-body p-3">
+              <!-- Budget Form -->
+              <form id="addBudgetForm">
+                <!-- Name Field -->
+                <div class="mb-3">
+                  <label for="budgetName" class="form-label">Budget Name</label>
+                  <input type="text" class="form-control" id="budgetName" name="budgetName" placeholder="Enter budget name" required>
+                </div>
+    
+                <!-- Description Field -->
+                <div class="mb-3">
+                  <label for="budgetDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="budgetDescription" name="budgetDescription" rows="3" placeholder="Enter budget description"></textarea>
+                </div>
+    
+                <!-- Total Amount Field -->
+                <div class="mb-3">
+                  <label for="totalAmount" class="form-label">Total Amount</label>
+                  <input type="number" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount" required>
+                </div>
+    
+                <!-- Start Date Field (Date Only) -->
+                <div class="mb-3">
+                  <label for="startDate" class="form-label">Start Date</label>
+                  <input type="date" class="form-control" id="startDate" name="startDate" required>
+                </div>
+    
+                <!-- End Date Field (Date Only) -->
+                <div class="mb-3">
+                  <label for="endDate" class="form-label">End Date</label>
+                  <input type="date" class="form-control" id="endDate" name="endDate" required>
+                </div>
+    
+                <!-- Notifications Field (Radio Buttons) -->
+                <div class="mb-3">
+                  <label class="form-label">Notifications</label><br>
+                  <input type="radio" id="notificationsEnabled" name="notifications" value="true"> Enabled
+                  <input type="radio" id="notificationsDisabled" name="notifications" value="false" checked> Disabled
+                </div>
+    
+                <!-- Add Budget Items Section -->
+                <div class="mb-3">
+                  <label class="form-label">Would you like to add budget items?</label><br>
+                  <input type="radio" id="addBudgetItemsYes" name="addBudgetItems" value="yes"> Yes
+                  <input type="radio" id="addBudgetItemsNo" name="addBudgetItems" value="no" checked> No
+                </div>
+
+    
+                <!-- Budget Items Section (Initially Hidden) -->
+                <div id="budgetItemsSection" style="display: none;">
+                  <h5 class="mb-3">Budget Items</h5>
+                  <!-- Item Type -->
                   <div class="mb-3">
-                    <label for="amount" class="form-label">Amount</label>
-                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
-                    <select class="form-select" id="type" name="type" required>
-                      <option value="" disabled selected>Select transaction type</option>
+                    <label for="itemType" class="form-label">Item Type</label>
+                    <select class="form-select" id="itemType" name="itemType">
                       <option value="income">Income</option>
                       <option value="expense">Expense</option>
                     </select>
                   </div>
+    
+                  <!-- Item Description -->
                   <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select class="form-select" id="category" name="category" onchange="toggleCustomCategory()" required>
-                      <option value="" disabled selected>Select category</option>
-                      <option value="salary">Salary</option>
-                      <option value="investment">Investment</option>
-                      <option value="food">Food</option>
-                      <option value="transport">Transport</option>
-                      <option value="others">Others</option>
-                    </select>
+                    <label for="itemDescription" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="itemDescription" name="itemDescription" placeholder="Enter item description">
                   </div>
-      
-                  <!-- Custom Category Input (Initially Hidden) -->
-                  <div class="mb-3" id="customCategoryDiv" style="display: none;">
-                    <label for="customCategory" class="form-label">Custom Category</label>
-                    <input type="text" class="form-control" id="customCategory" name="customCategory" placeholder="Enter custom category">
-                  </div>
-      
+    
+                  <!-- Item Amount -->
                   <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description" required></textarea>
+                    <label for="itemAmount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="itemAmount" name="itemAmount" placeholder="Enter item amount">
                   </div>
-                  <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date" required>
-                  </div>
-                  <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </form>
-              </div>
+                </div>  
+                <!-- Buttons -->
+                <div class="d-grid gap-2">
+                  <button id="submitBudgetForm"type="submit" class="btn btn-success rounded-pill">Submit<i class="fas fa-check-circle"></i></button>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="button" onclick="window.location.href='../pages/goalsAndBudgets.html'">Cancel</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    
       
   </main>
   <div class="fixed-plugin">
@@ -363,19 +424,154 @@
   </script>
 
 <script>
-    // Function to toggle the visibility of the custom category input field
-    function toggleCustomCategory() {
-      var category = document.getElementById("category").value;
-      var customCategoryDiv = document.getElementById("customCategoryDiv");
-  
-      if (category === "others") {
-        customCategoryDiv.style.display = "block"; // Show the custom category input
-      } else {
-        customCategoryDiv.style.display = "none"; // Hide the custom category input
-        document.getElementById("customCategory").value = ""; // Clear the custom category input
-      }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Utility functions
+    function showErrorMessage(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorMessage = document.createElement("small");
+      errorMessage.classList.add("text-danger");
+      errorMessage.textContent = message;
+
+      field.classList.add("is-invalid");
+      field.parentElement.appendChild(errorMessage);
     }
-  </script>
+
+    function clearErrorMessages() {
+      const errorMessages = document.querySelectorAll(".text-danger");
+      errorMessages.forEach((message) => message.remove());
+
+      const fields = document.querySelectorAll(".form-control");
+      fields.forEach((field) => field.classList.remove("is-invalid"));
+    }
+
+    function validateForm() {
+      let isValid = true;
+
+      const budgetName = document.getElementById("budgetName").value.trim();
+      const totalAmount = parseFloat(document.getElementById("totalAmount").value);
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+
+      clearErrorMessages();
+
+      if (!budgetName) {
+        showErrorMessage("budgetName", "Budget name is required.");
+        isValid = false;
+      }
+
+      if (isNaN(totalAmount) || totalAmount <= 0) {
+        showErrorMessage("totalAmount", "Total amount must be a positive number.");
+        isValid = false;
+      }
+
+      if (!startDate) {
+        showErrorMessage("startDate", "Start date is required.");
+        isValid = false;
+      } else if (new Date(startDate) < new Date()) {
+        showErrorMessage("startDate", "Start date cannot be in the past.");
+        isValid = false;
+      }
+
+      if (!endDate) {
+        showErrorMessage("endDate", "End date is required.");
+        isValid = false;
+      } else if (new Date(endDate) <= new Date(startDate)) {
+        showErrorMessage("endDate", "End date must be after the start date.");
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function toggleBudgetItemsSection() {
+      const budgetItemsSection = document.getElementById("budgetItemsSection");
+      const addBudgetItemsYes = document.getElementById("addBudgetItemsYes");
+
+      budgetItemsSection.style.display = addBudgetItemsYes.checked ? "block" : "none";
+    }
+
+    // Attach toggle function to radio buttons
+    document.getElementById("addBudgetItemsYes").addEventListener("change", toggleBudgetItemsSection);
+    document.getElementById("addBudgetItemsNo").addEventListener("change", toggleBudgetItemsSection);
+
+    // Initialize section visibility on page load
+    toggleBudgetItemsSection();
+
+    function submitBudgetForm(event) {
+      event.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
+      const budgetName = document.getElementById("budgetName").value;
+      const budgetDescription = document.getElementById("budgetDescription").value || null;
+      const totalAmount = parseFloat(document.getElementById("totalAmount").value);
+      const startDate = `${document.getElementById("startDate").value}T00:00:00`;
+      const endDate = `${document.getElementById("endDate").value}T23:59:59`;
+      const notificationsEnabled = document.querySelector('input[name="notifications"]:checked').value === "enabled";
+
+      const budgetItems = [];
+      if (document.getElementById("addBudgetItemsYes").checked) {
+        const itemType = document.getElementById("itemType").value || null;
+        const itemDescription = document.getElementById("itemDescription").value.trim() || null;
+        const itemAmount = parseFloat(document.getElementById("itemAmount").value) || 0;
+
+        if (itemType && itemDescription && itemAmount > 0) {
+          budgetItems.push({
+            type: itemType.toUpperCase(),
+            description: itemDescription,
+            amount: itemAmount,
+          });
+        } else {
+          alert("Please fill out all budget item fields correctly.");
+          return;
+        }
+      }
+
+      const requestBody = {
+        budgetName,
+        budgetDescription,
+        totalAmount,
+        startDate,
+        endDate,
+        notificationsEnabled,
+        budgetItems,
+      };
+
+      const token = localStorage.getItem("token");
+
+      fetch("http://localhost:8080/api/budgets", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to create budget. Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert("Budget created successfully!");
+          console.log("Budget created:", data);
+          window.location.href = "/pages/goalsAndBudgets.html";
+        })
+        .catch((error) => {
+          console.error("Error creating budget:", error);
+          alert(`Error creating budget: ${error.message}`);
+        });
+    }
+
+    document.getElementById("addBudgetForm").addEventListener("submit", submitBudgetForm);
+  });
+</script>
+
+
+
 
   
   <!-- Github buttons -->
